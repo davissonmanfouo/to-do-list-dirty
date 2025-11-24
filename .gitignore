@@ -1,0 +1,34 @@
+# Base de données
+*.sqlite3
+db.sqlite3
+
+# Environnements virtuels Python
+venv/
+env/
+ENV/
+.venv
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Fichiers Django
+*.log
+local_settings.py
+
+# Archives de build
+*.zip
+*.tar.gz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pipenv
+Pipfile.lock
