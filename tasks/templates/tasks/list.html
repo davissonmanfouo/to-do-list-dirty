@@ -49,8 +49,10 @@
 <h1 style="text-align: center; color: #fb5607; font-size: 125px;        text-shadow: -10px 0 black, 0 10px black, 10px 0 black, 0 -10px black;
 
 "><b>TO DO LIST</b></h1>
+
 <div  class="center-column">
 	<form method="POST" action="/">
+		<div>Version: {{Version}}</div>
 		{% csrf_token %}
 		{{form.title}}
 		<input class="btn btn-info" type="submit" name="Create Task">
