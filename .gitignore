@@ -31,5 +31,5 @@ local_settings.py
 Thumbs.db
 
 # Pipenv
-Pipfile.lock
+
 db.sqlite3
