@@ -1,10 +1,11 @@
 import json
 from pathlib import Path
+from typing import Optional
 
-from .models import Task
+from tasks.models import Task
 
 
-def import_tasks_from_dataset(dataset_path: Path | None = None) -> int:
+def import_tasks_from_dataset(dataset_path: Optional[Path] = None) -> int:
     """
     Importe des tâches depuis un fichier JSON de dataset.
     Retourne le nombre de tâches créées.
@@ -21,7 +22,7 @@ def import_tasks_from_dataset(dataset_path: Path | None = None) -> int:
     for item in data:
         Task.objects.create(
             title=item["title"],
-            complete=item.get("complete", False),
+            complete=bool(item.get("complete", False)),
         )
         created_count += 1
 

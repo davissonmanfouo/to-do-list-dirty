@@ -1,0 +1,47 @@
+[
+  {
+    "test_case_id": null,
+    "test_name": "test_dataset_file_exists_and_is_valid_json (tests.DatasetImportTests)",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC009",
+    "test_name": "test_import_tasks_from_dataset_creates_tasks_in_db (tests.DatasetImportTests)",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC003",
+    "test_name": "test_delete_task_url_status_code_get (tests.TaskViewsTests)\nLa page '/delete_task/ID/' doit répondre 200 en GET (page de confirmation).",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC007",
+    "test_name": "test_delete_task_url_status_code_post (tests.TaskViewsTests)\nEn POST sur '/delete_task/ID/', la tâche doit être supprimée puis redirection.",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC001",
+    "test_name": "test_index_url_status_code (tests.TaskViewsTests)\nLa page d'accueil '/' doit répondre avec un code HTTP 200.",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC008",
+    "test_name": "test_task_str_returns_title (tests.TaskViewsTests)",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC002",
+    "test_name": "test_update_task_url_status_code_get (tests.TaskViewsTests)\nLa page '/update_task/ID/' doit répondre 200 en GET.",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC006",
+    "test_name": "test_update_task_url_status_code_post (tests.TaskViewsTests)\nEn POST sur '/update_task/ID/', la tâche doit être mise à jour puis redirection.",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC010",
+    "test_name": "test_version_is_displayed_on_home (tests.TaskViewsTests)\nLa page d'accueil affiche la version de l'application.",
+    "status": "passed"
+  }
+]

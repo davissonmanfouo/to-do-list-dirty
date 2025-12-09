@@ -1,0 +1,12 @@
+[
+  {
+    "test_case_id": "TC016",
+    "test_name": "test_create_and_delete_10_tasks_keeps_task_count (__main__.TodoListE2ETest)\nTC016 auto (Selenium) :",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC017",
+    "test_name": "test_first_task_stays_when_deleting_second (__main__.TodoListE2ETest)\nTC017 auto (Selenium) :",
+    "status": "passed"
+  }
+]

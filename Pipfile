@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 django = "==4.2.26"
+pyyaml = "*"
+selenium = "*"
+webdriver-manager = "*"
 
 [dev-packages]
 ruff = "*"

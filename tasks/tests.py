@@ -1,20 +1,33 @@
-from django.test import TestCase
-from django.urls import reverse
-
-from .models import Task
 from pathlib import Path
 import json
 
 from django.conf import settings
+from django.test import TestCase
+from django.urls import reverse
 
-from .utils import import_tasks_from_dataset
-from .models import Task
+from tasks.models import Task
+from tasks.utils import import_tasks_from_dataset
+
+
+def tc(test_id: str):
+    """
+    Décorateur pour taguer un test Django avec un ID de cahier de tests (TC001, etc.).
+    Il ajoute un attribut .test_case_id à la méthode de test.
+    """
+
+    def decorator(func):
+        func.test_case_id = test_id
+        return func
+
+    return decorator
+
 
 class TaskViewsTests(TestCase):
     def setUp(self):
         # Crée une tâche de test pour les vues qui ont besoin d'un ID
         self.task = Task.objects.create(title="Test task", complete=False)
 
+    @tc("TC001")
     def test_index_url_status_code(self):
         """
         La page d'accueil '/' doit répondre avec un code HTTP 200.
@@ -23,6 +36,7 @@ class TaskViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Test task")
 
+    @tc("TC002")
     def test_update_task_url_status_code_get(self):
         """
         La page '/update_task/ID/' doit répondre 200 en GET.
@@ -33,6 +47,7 @@ class TaskViewsTests(TestCase):
         # On doit voir le titre de la tâche dans le formulaire
         self.assertContains(response, "Test task")
 
+    @tc("TC006")
     def test_update_task_url_status_code_post(self):
         """
         En POST sur '/update_task/ID/', la tâche doit être mise à jour puis redirection.
@@ -48,27 +63,39 @@ class TaskViewsTests(TestCase):
         self.assertEqual(self.task.title, "Updated task")
         self.assertTrue(self.task.complete)
 
+    @tc("TC003")
     def test_delete_task_url_status_code_get(self):
         """
         La page '/delete_task/ID/' doit répondre 200 en GET (page de confirmation).
         """
-        url = reverse("delete_task", kwargs={"pk": self.task.id})
+        url = reverse("delete", kwargs={"pk": self.task.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Test task")
 
+    @tc("TC007")
     def test_delete_task_url_status_code_post(self):
         """
         En POST sur '/delete_task/ID/', la tâche doit être supprimée puis redirection.
         """
-        url = reverse("delete_task", kwargs={"pk": self.task.id})
+        url = reverse("delete", kwargs={"pk": self.task.id})
         response = self.client.post(url, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Task.objects.filter(id=self.task.id).exists())
+
+    @tc("TC008")
     def test_task_str_returns_title(self):
         task = Task.objects.create(title="My title", complete=False)
         self.assertEqual(str(task), "My title")
-    
+
+    @tc("TC010")
+    def test_version_is_displayed_on_home(self):
+        """
+        La page d'accueil affiche la version de l'application.
+        """
+        response = self.client.get(reverse("list"))
+        self.assertContains(response, str(settings.VERSION))
+
 
 class DatasetImportTests(TestCase):
     def setUp(self):
@@ -87,6 +114,7 @@ class DatasetImportTests(TestCase):
         self.assertGreater(len(data), 0)
         self.assertIn("title", data[0])
 
+    @tc("TC009")
     def test_import_tasks_from_dataset_creates_tasks_in_db(self):
         # On s'assure que la base est vide au départ
         Task.objects.all().delete()
@@ -104,4 +132,3 @@ class DatasetImportTests(TestCase):
         self.assertTrue(
             Task.objects.filter(title="Acheter du pain").exists()
         )
-

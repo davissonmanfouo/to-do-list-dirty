@@ -1,0 +1,74 @@
+tests:
+  - id: TC001
+    type: auto
+    description: Home '/' retourne 200 et affiche la liste des tâches.
+
+  - id: TC002
+    type: auto
+    description: GET update_task/<id>/ retourne 200 et le formulaire chargé.
+
+  - id: TC003
+    type: auto
+    description: GET delete_task/<id>/ retourne 200 et la page de confirmation s'affiche.
+
+  - id: TC004
+    type: auto
+    description: POST '/' avec un titre valide crée une tâche et redirige 302 -> 200.
+
+  - id: TC005
+    type: auto
+    description: POST '/' avec titre vide ne crée aucune tâche et renvoie une erreur formulaire.
+
+  - id: TC006
+    type: auto
+    description: Mise à jour d'une tâche existante modifie bien les valeurs en base.
+
+  - id: TC007
+    type: auto
+    description: POST delete_task/<id>/ supprime la tâche puis redirige.
+
+  - id: TC008
+    type: auto
+    description: __str__ du modèle Task retourne bien son titre.
+
+  - id: TC009
+    type: auto
+    description: import_tasks_from_dataset() crée toutes les tâches du dataset.json.
+
+  - id: TC010
+    type: auto
+    description: La page '/' affiche la variable de version en bas de l'écran.
+
+  - id: TC011
+    type: manuel
+    description: Interface lisible, alignée, boutons Update/Delete visibles et fonctionnels.
+
+  - id: TC012
+    type: manuel
+    description: Fonctionne sur Chrome et Firefox pour CRUD complet sans erreur.
+
+  - id: TC013
+    type: manuel
+    description: Rafraîchissement de page après POST ne duplique pas les entrées.
+
+  - id: TC014
+    type: manuel
+    description: La navigation clavier via TAB permet d'accéder aux champs et boutons.
+
+  - id: TC015
+    type: manuel
+    description: Accès à update/delete_task/<id inexistant> renvoie 404 ou message clair.
+  - id: TC016
+    type: auto-selenium
+    description: >
+      Test E2E Selenium : se connecter à l'application, compter le nombre de tâches,
+      créer 10 tâches, supprimer ces 10 tâches, puis vérifier que le nombre
+      de tâches final est identique au nombre initial.
+
+  - id: TC017
+    type: auto-selenium
+    description: >
+      Test E2E Selenium : ajouter une tâche A, mémoriser son nom, ajouter une
+      tâche B, supprimer la dernière tâche créée (B), et vérifier que la tâche A
+      est toujours présente dans la liste.
+

@@ -88,5 +88,17 @@
     "type": "manuel",
     "description": "Accès à update/delete_task/<id inexistant> renvoie 404 ou message clair.",
     "status": "MANUAL_ONLY"
+  },
+  {
+    "id": "TC016",
+    "type": "auto-selenium",
+    "description": "Test E2E Selenium : se connecter à l'application, compter le nombre de tâches, créer 10 tâches, supprimer ces 10 tâches, puis vérifier que le nombre de tâches final est identique au nombre initial.\n",
+    "status": "NOT_IMPLEMENTED"
+  },
+  {
+    "id": "TC017",
+    "type": "auto-selenium",
+    "description": "Test E2E Selenium : ajouter une tâche A, mémoriser son nom, ajouter une tâche B, supprimer la dernière tâche créée (B), et vérifier que la tâche A est toujours présente dans la liste.\n",
+    "status": "NOT_IMPLEMENTED"
   }
 ]
