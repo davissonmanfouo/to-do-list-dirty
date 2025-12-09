@@ -10,6 +10,26 @@
     "status": "passed"
   },
   {
+    "test_case_id": "TC019",
+    "test_name": "test_create_task_with_priority_via_home_view (tests.TaskPriorityTests)",
+    "status": "error"
+  },
+  {
+    "test_case_id": "TC021",
+    "test_name": "test_home_view_orders_tasks_by_priority (tests.TaskPriorityTests)",
+    "status": "error"
+  },
+  {
+    "test_case_id": "TC018",
+    "test_name": "test_task_has_priority_field_default_false (tests.TaskPriorityTests)",
+    "status": "passed"
+  },
+  {
+    "test_case_id": "TC020",
+    "test_name": "test_update_task_priority_via_update_view (tests.TaskPriorityTests)",
+    "status": "error"
+  },
+  {
     "test_case_id": "TC003",
     "test_name": "test_delete_task_url_status_code_get (tests.TaskViewsTests)\nLa page '/delete_task/ID/' doit répondre 200 en GET (page de confirmation).",
     "status": "passed"

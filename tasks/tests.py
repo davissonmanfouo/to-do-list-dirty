@@ -132,3 +132,52 @@ class DatasetImportTests(TestCase):
         self.assertTrue(
             Task.objects.filter(title="Acheter du pain").exists()
         )
+class TaskPriorityTests(TestCase):
+    @tc("TC018")
+    def test_task_has_priority_field_default_false(self):
+        task = Task.objects.create(title="Task without priority flag")
+        self.assertFalse(
+            getattr(task, "priority", False),
+            "Le champ priority doit exister et être False par défaut.",
+        )
+
+    @tc("TC019")
+    def test_create_task_with_priority_via_home_view(self):
+        url = reverse("list")
+        response = self.client.post(
+            url,
+            {"title": "Important task", "complete": False, "priority": True},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        task = Task.objects.get(title="Important task")
+        self.assertTrue(task.priority)
+
+    @tc("TC020")
+    def test_update_task_priority_via_update_view(self):
+        task = Task.objects.create(title="To update", complete=False, priority=False)
+        url = reverse("update_task", kwargs={"pk": task.id})
+        response = self.client.post(
+            url,
+            {"title": "To update", "complete": False, "priority": True},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        task.refresh_from_db()
+        self.assertTrue(task.priority)
+
+    @tc("TC021")
+    def test_home_view_orders_tasks_by_priority(self):
+        low = Task.objects.create(title="Low", complete=False, priority=False)
+        high = Task.objects.create(title="High", complete=False, priority=True)
+
+        response = self.client.get(reverse("list"))
+        self.assertEqual(response.status_code, 200)
+
+        content = response.content.decode()
+        # On vérifie que "High" apparaît avant "Low" dans le HTML
+        self.assertLess(
+            content.index("High"),
+            content.index("Low"),
+            "La tâche prioritaire doit apparaitre avant la tâche non prioritaire.",
+        )
