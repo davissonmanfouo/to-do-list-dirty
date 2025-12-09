@@ -1,0 +1,12 @@
+[run]
+source = tasks
+branch = True
+omit =
+    */migrations/*
+    */venv/*
+    */.venv/*
+
+[report]
+show_missing = True
+skip_covered = False
+

@@ -59,5 +59,9 @@ class TaskViewsTests(TestCase):
         response = self.client.post(url, follow=True)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Task.objects.filter(id=self.task.id).exists())
+    def test_task_str_returns_title(self):
+        task = Task.objects.create(title="My title", complete=False)
+        self.assertEqual(str(task), "My title")
+    
 
 
