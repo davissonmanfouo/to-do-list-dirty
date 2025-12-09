@@ -2,7 +2,13 @@ from django.test import TestCase
 from django.urls import reverse
 
 from .models import Task
+from pathlib import Path
+import json
 
+from django.conf import settings
+
+from .utils import import_tasks_from_dataset
+from .models import Task
 
 class TaskViewsTests(TestCase):
     def setUp(self):
@@ -64,4 +70,38 @@ class TaskViewsTests(TestCase):
         self.assertEqual(str(task), "My title")
     
 
+class DatasetImportTests(TestCase):
+    def setUp(self):
+        # On pointe vers dataset.json à la racine du projet
+        self.dataset_path = Path(settings.BASE_DIR) / "dataset.json"
+
+    def test_dataset_file_exists_and_is_valid_json(self):
+        # Le fichier doit exister
+        self.assertTrue(self.dataset_path.exists())
+
+        # Le JSON doit être valide
+        with self.dataset_path.open(encoding="utf-8") as f:
+            data = json.load(f)
+
+        self.assertIsInstance(data, list)
+        self.assertGreater(len(data), 0)
+        self.assertIn("title", data[0])
+
+    def test_import_tasks_from_dataset_creates_tasks_in_db(self):
+        # On s'assure que la base est vide au départ
+        Task.objects.all().delete()
+        self.assertEqual(Task.objects.count(), 0)
+
+        created_count = import_tasks_from_dataset(self.dataset_path)
+
+        # Le nombre retourné doit être > 0
+        self.assertGreater(created_count, 0)
+
+        # Et la base doit contenir autant de tâches
+        self.assertEqual(Task.objects.count(), created_count)
+
+        # On peut vérifier qu'une des tâches du dataset est bien présente
+        self.assertTrue(
+            Task.objects.filter(title="Acheter du pain").exists()
+        )
 
